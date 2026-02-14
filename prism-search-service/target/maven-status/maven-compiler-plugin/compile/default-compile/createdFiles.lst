@@ -1,0 +1,8 @@
+com\smile\prism\search\model\EventDocument$EventDocumentBuilder.class
+com\smile\prism\search\api\DiscoveryController.class
+com\smile\prism\search\service\EventProjector.class
+com\smile\prism\search\model\EventDocument.class
+com\smile\prism\search\api\SearchResponse.class
+com\smile\prism\search\PrismSearchServiceApplication.class
+com\smile\prism\search\service\DiscoveryService.class
+com\smile\prism\search\repository\EventSearchRepository.class

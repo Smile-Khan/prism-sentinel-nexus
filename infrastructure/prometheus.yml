@@ -1,0 +1,27 @@
+global:
+  scrape_interval: 5s # High-frequency scraping for real-time dashboards
+  evaluation_interval: 5s
+
+scrape_configs:
+  # 1. Monitor the Prometheus instance itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. Monitor Sentinel (The Write-Engine)
+  - job_name: 'sentinel-engine'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8080'] # Port 8080 (Sentinel)
+
+  # 3. Monitor Prism Command (The Ingestor)
+  - job_name: 'prism-command'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8081'] # We will set Prism to 8081
+
+  # 4. Monitor Prism Search (The Reader)
+  - job_name: 'prism-search'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8082'] # We will set Search to 8082
