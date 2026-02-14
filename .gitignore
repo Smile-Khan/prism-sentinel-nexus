@@ -1,0 +1,20 @@
+# Build Artifacts
+target/
+*.jar
+*.war
+*.class
+
+# IDE Files (Never commit these)
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
