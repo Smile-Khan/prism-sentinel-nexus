@@ -18,3 +18,14 @@ Thumbs.db
 
 # Logs
 *.log
+
+target/
+*.class
+*.jar
+.idea/
+*.iml
+.mvn/
+mvnw
+mvnw.cmd
+.DS_Store
+Thumbs.db

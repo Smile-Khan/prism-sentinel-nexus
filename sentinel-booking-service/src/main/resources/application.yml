@@ -1,0 +1,59 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: sentinel-booking-service
+
+  # Java 21 Virtual Threads
+  threads:
+    virtual:
+      enabled: true
+
+  # Database (Sentinel Core - Port 5432)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sentinel_core?jdbcCompliantTruncation=false&options=-c%20timezone=UTC
+    username: sentinel_user
+    password: sentinel_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      pool-name: SentinelHikariPool
+
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+  # Redis (Sentinel Cache - Port 6379)
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # Kafka Producer
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        max.block.ms: 2000
+        delivery.timeout.ms: 3000
+        request.timeout.ms: 2000
+
+# Monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  metrics:
+    tags:
+      application: ${spring.application.name}
