@@ -2,14 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="prism-sentinel-nexus" />
         <module name="sentinel-booking-service" />
       </profile>
-      <profile name="Annotation profile for Prism :: Search Service" enabled="true">
+      <profile name="Annotation profile for Prism x Sentinel Nexus" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -28,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="prism-command-service" options="-parameters" />
       <module name="prism-search-service" options="-parameters" />
+      <module name="prism-sentinel-nexus" options="-parameters" />
       <module name="sentinel-booking-service" options="-parameters" />
       <module name="ticketing-engine" options="-parameters" />
     </option>

@@ -1,7 +1,7 @@
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\api\EventController.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\api\EventRequest.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\domain\BaseEntity.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\domain\Event.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\PrismCommandServiceApplication.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\repository\EventRepository.java
-C:\prism\prism-command-service\src\main\java\com\smile\prism\command\service\EventService.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\api\EventController.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\api\EventRequest.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\domain\BaseEntity.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\domain\Event.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\PrismCommandServiceApplication.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\repository\EventRepository.java
+C:\prism-sentinel-nexus\prism-command-service\src\main\java\com\smile\prism\command\service\EventService.java

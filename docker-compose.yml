@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   # ==========================================
   # SHARED EVENT BACKBONE (The Nervous System)
   # ==========================================
-  zookeeper:
+  nexus-zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: nexus-zookeeper
     environment:
@@ -13,18 +11,18 @@ services:
     networks:
       - nexus-net
 
-  kafka:
+  nexus-kafka:
     image: confluentinc/cp-kafka:7.5.0
     container_name: nexus-kafka
     depends_on:
-      - zookeeper
+      - nexus-zookeeper
     ports:
       - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: nexus-zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      # Internal Docker comms: kafka:29092, External (Host) comms: localhost:9092
+      # Internal Docker comms: nexus-kafka:29092, External (Host) comms: localhost:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://nexus-kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -35,7 +33,7 @@ services:
   # ==========================================
   # SENTINEL INFRASTRUCTURE (Write-Side)
   # ==========================================
-  sentinel-db:
+  sentinel-postgres:
     image: postgres:16
     container_name: sentinel-postgres
     ports:
@@ -50,7 +48,7 @@ services:
     networks:
       - nexus-net
 
-  sentinel-cache:
+  sentinel-redis:
     image: redis:7
     container_name: sentinel-redis
     ports:
@@ -61,7 +59,7 @@ services:
   # ==========================================
   # PRISM INFRASTRUCTURE (Read/CDC-Side)
   # ==========================================
-  prism-db:
+  prism-postgres:
     image: debezium/postgres:16
     container_name: prism-postgres
     ports:
@@ -95,7 +93,7 @@ services:
     container_name: prism-debezium
     depends_on:
       - nexus-kafka
-      - prism-db
+      - prism-postgres
     ports:
       - "8083:8083"
     environment:
@@ -113,7 +111,7 @@ services:
   # ==========================================
   # OBSERVABILITY (Prometheus + Grafana)
   # ==========================================
-  prometheus:
+  nexus-prometheus:
     image: prom/prometheus:latest
     container_name: nexus-prometheus
     ports:
@@ -125,7 +123,7 @@ services:
     networks:
       - nexus-net
 
-  grafana:
+  nexus-grafana:
     image: grafana/grafana:latest
     container_name: nexus-grafana
     ports:
@@ -133,7 +131,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
-      - prometheus
+      - nexus-prometheus
     networks:
       - nexus-net
 

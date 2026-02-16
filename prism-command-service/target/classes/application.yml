@@ -1,20 +1,20 @@
 server:
-  port: 8080
-  shutdown: graceful
+  port: 8081
 
 spring:
   application:
     name: prism-command-service
 
-  # Java 21 Performance Tuning
   threads:
     virtual:
       enabled: true
 
+  # Database (Prism Core - Port 5433)
+  # CRITICAL FIX: Changed port from 5432 to 5433
   datasource:
-    url: jdbc:postgresql://localhost:5432/prism_db
-    username: smile_admin
-    password: secure_pass
+    url: jdbc:postgresql://localhost:5433/prism_core
+    username: prism_admin
+    password: prism_password
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: prism-command-hikari-pool
@@ -29,3 +29,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         jdbc.batch_size: 50
         order_inserts: true
+
+# Monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  metrics:
+    tags:
+      application: ${spring.application.name}

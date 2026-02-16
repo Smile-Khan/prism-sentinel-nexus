@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
 
     <name>Prism x Sentinel Nexus</name>
-    <description>Unified Distributed Ecosystem for High-Concurrency Ticketing & Discovery</description>
+    <description>Unified Distributed Ecosystem for High-Concurrency Ticketing and Discovery</description>
 
     <modules>
         <module>sentinel-booking-service</module>
