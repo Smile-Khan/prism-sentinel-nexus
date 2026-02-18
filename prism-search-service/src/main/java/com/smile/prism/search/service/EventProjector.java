@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -19,39 +19,27 @@ public class EventProjector {
     private final EventSearchRepository searchRepository;
     private final ObjectMapper objectMapper;
 
-    /**
-     * Listens to Debezium CDC events.
-     * Debezium topic format: prism-cdc.public.events
-     */
     @KafkaListener(topics = "prism-cdc.public.events", groupId = "prism-search-group")
     public void processCdcEvent(String message) {
         try {
-            JsonNode root = objectMapper.readTree(message);
+            JsonNode payload = objectMapper.readTree(message).path("payload");
+            String op = payload.path("op").asText();
 
-            // Debezium structure: { "payload": { "op": "c", "after": { ... data ... } } }
-            JsonNode payload = root.path("payload");
-            String operation = payload.path("op").asText();
-
-            // We only care about Create (c), Update (u), and Snapshot (r)
-            if (!"d".equals(operation)) { // 'd' is delete
+            if (!"d".equals(op)) {
                 JsonNode after = payload.path("after");
 
-                // Map Postgres columns to Elastic Document
                 EventDocument doc = EventDocument.builder()
-                        .id(after.get("id").asText())
-                        .title(after.get("title").asText())
-                        .category(after.get("category").asText())
-                        .status(after.get("status").asText())
-                        // Metadata is JSONB string in Debezium, needs parsing
-                        // For simplicity in this step, we skip complex metadata parsing or map it simply
+                        .id(UUID.fromString(after.path("id").asText())) // Safe parsing to UUID
+                        .title(after.path("title").asText())
+                        .category(after.path("category").asText())
+                        .status(after.path("status").asText())
                         .build();
 
                 searchRepository.save(doc);
-                log.info("🔍 [Prism Search] Indexed Document ID: {}", doc.getId());
+                log.info("[PRISM-PROJECTOR] Document indexed successfully. ID: {}", doc.getId());
             }
-
         } catch (Exception e) {
-            log.error("❌ Failed to project event: {}", e.getMessage());
+            log.error("[PRISM-PROJECTOR] Critical failure during CDC projection: {}", e.getMessage());
         }
     }
 }

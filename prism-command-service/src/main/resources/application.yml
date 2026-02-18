@@ -1,16 +1,14 @@
 server:
   port: 8081
+  shutdown: graceful
 
 spring:
   application:
     name: prism-command-service
-
   threads:
     virtual:
       enabled: true
 
-  # Database (Prism Core - Port 5433)
-  # CRITICAL FIX: Changed port from 5432 to 5433
   datasource:
     url: jdbc:postgresql://localhost:5433/prism_core
     username: prism_admin
@@ -30,7 +28,6 @@ spring:
         jdbc.batch_size: 50
         order_inserts: true
 
-# Monitoring
 management:
   endpoints:
     web:

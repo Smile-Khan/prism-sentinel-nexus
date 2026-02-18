@@ -4,7 +4,8 @@ import com.smile.prism.search.document.EventDocument;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface EventSearchRepository extends ElasticsearchRepository<EventDocument, String> {
-    // We will add fuzzy search methods later
+public interface EventSearchRepository extends ElasticsearchRepository<EventDocument, UUID> {
 }

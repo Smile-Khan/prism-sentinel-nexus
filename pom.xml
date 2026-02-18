@@ -8,7 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.nexus</groupId>
@@ -27,48 +27,39 @@
 
     <properties>
         <java.version>21</java.version>
-        <lombok.version>1.18.30</lombok.version>
+        <springdoc.version>2.8.4</springdoc.version>
         <redisson.version>3.24.3</redisson.version>
-        <lz4.version>1.8.0</lz4.version>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
+        <vavr.version>0.10.2</vavr.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Redisson (Sentinel) -->
+            <!-- Documentation: SpringDoc OpenAPI -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <!-- Distributed Locking: Redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <!-- LZ4 Compression (Sentinel) -->
-            <dependency>
-                <groupId>org.lz4</groupId>
-                <artifactId>lz4-java</artifactId>
-                <version>${lz4.version}</version>
-            </dependency>
-            <!-- VAVR (Functional Java) -->
+            <!-- Functional Java: Vavr -->
             <dependency>
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
-                <version>0.10.2</version>
+                <version>${vavr.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <!-- Global Lombok Support -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- Global Testing Support -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

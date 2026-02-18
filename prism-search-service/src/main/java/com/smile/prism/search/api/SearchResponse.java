@@ -1,6 +1,7 @@
 package com.smile.prism.search.api;
 
-import com.smile.prism.search.model.EventDocument;
+import com.smile.prism.search.document.EventDocument;
+
 import java.util.List;
 import java.util.Map;
 
