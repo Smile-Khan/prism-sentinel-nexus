@@ -6,6 +6,10 @@ The **Nexus Ecosystem** is a high-scale, production-oriented distributed system 
 It leverages **CQRS (Command Query Responsibility Segregation)**, **event-driven architecture**, and **Change Data Capture (CDC)** to ensure scalability, consistency, and resilience under extreme load.
 
 ---
+📺 **Project Walkthrough (4-part series):** [Watch on YouTube](https://youtube.com/playlist?list=PLYtCuHr3HK6U)  
+🔗 **Channel:** [Smile System Design](https://youtube.com/@smilesystemdesign)
+
+---
 
 ## 🏗️ Architectural Overview
 
